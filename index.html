@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<hi> Shopping Cart</hi>
+
+<div>
+<ul>
+    <li><a class ="add-to-cart" href="#" data-name="Apple" data-price="1.22">Apple $1.22</a></li>
+    <li><a class ="add-to-cart" href="#" data-name="Banana" data-price="2.00">Banana $2.00</a></li>
+    <li><a class ="add-to-cart" href="#" data-name="Orange" data-price="3.22">Orange $3.22</a></li>
+</ul>
+<button id="clear-cart">Clear Cart </button?>
+</div>
+
+<div>
+<ul id="show-cart">
+
+</ul>
+</div>
+
+
+
+<script>  
+
+//(".add-to-cart").click(function(event){
+//event.preventDefault();
+//});
+
+//shopping cart features
+
+  var cart = [];
+  var Item = function(name,price,count){
+      this.name = name
+      this.price = price
+      this.count = count
+  };
+  
+  //add item
+  function addItemToCart(name, price, count) {
+      for (var i in cart){
+          if (cart[i].name===name) {
+              cart[i].count ++;
+              return;
+          }
+      }
+      var item = new Item(name, price, count);
+      cart.push(item);
+  }
+ 
+ addItemToCart("Apple", 1.22,1);
+ addItemToCart("Pear",1.72,3);
+ addItemToCart("Orange", 1.23,1);
+ addItemToCart("Kiwi",2.32,7);
+ addItemToCart("Banana",2.00,5);
+ addItemToCart("Strawberries",1.50,10);
+
+ /*
+ console.log(cart.length);
+console.log(cart);
+
+removeItemFromCartAll("Apple");
+
+ console.log(cart); 
+ console.log(cart[0])
+ console.log(cart[0].name)
+*/
+
+ //subtract item
+
+ function removeItemFromCart(name){
+     for (var i in cart) {
+         if (cart[i].name === name){
+             cart[i].count --;
+             if (cart[i].count === 0){
+                 cart.splice(i,1);
+             }
+             break;
+         }
+     }
+ }
+
+
+ function removeItemFromCartAll(name){
+     for (var i in cart) {
+         if (cart[i].name === name){
+             cart.splice(i,1);
+             break;
+         }
+     }
+ }
+
+ console.log(cart[0].count);
+ removeItemFromCart("Apple", 1.22,1);
+ removeItemFromCart("Pear",1.72,3);
+ removeItemFromCart("Orange", 1.23,1);
+ removeItemFromCart("Kiwi",2.32,7);
+ removeItemFromCart("Banana",2.00,5);
+ removeItemFromCart("Strawberries",1.50,10);
+
+console.log(cart.length);
+console.log(cart);
+
+removeItemFromCartAll("Banana");
+
+console.log(cart.Length);
+console.log(cart);
+
+function clearCart() {
+    cart = [];
+}
+
+clearCart();
+console.log(cart);
+
+function countCart() {
+    var totalCount = 0;
+    for (var i in cart) {
+        totalCount += cart[i].count;
+    }
+    return totalCount;
+}
+
+console.log(countCart());
+
+function totalCart() {
+    var totalCost = 0;
+    for (var i in cart) {
+        totalCost += cart[i].price;
+    }
+    return totalCost;
+}
+
+console.log (totalCart());
+
+//list cart
+function listCart() {
+    var cartCopy = [];
+    for(var i in cart){
+        var item = cart[i];
+        var itemCopy = {};
+        for (var p in item){
+            itemCopy[p] = item[p];
+        }
+        cartCopy.push(itemCopy);
+    }
+    return cartCopy;
+}
+
+var array = listCart();
+
+console.log(array);
+
+//save cart
+function saveCart() {
+    localStorage.setItem("shoppingCart",JSON.stringify(cart) );
+}
+
+function loadCart(){
+cart = JSON.parse(localStorage.getItem("shoppingCart"));
+
+}
+
+loadCart();
+
+var array = listCart();
+console.log(array);
+
+ </script>
+</body>
+</html>
