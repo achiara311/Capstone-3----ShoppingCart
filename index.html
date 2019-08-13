@@ -6,33 +6,62 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js">//</script>
 </head>
 <body>
 
-<hi> Shopping Cart</hi>
+<h1> Shopping Cart</h1>
 
 <div>
 <ul>
     <li><a class ="add-to-cart" href="#" data-name="Apple" data-price="1.22">Apple $1.22</a></li>
     <li><a class ="add-to-cart" href="#" data-name="Banana" data-price="2.00">Banana $2.00</a></li>
     <li><a class ="add-to-cart" href="#" data-name="Orange" data-price="3.22">Orange $3.22</a></li>
+    <li><a class ="add-to-cart" href="#" data-name="Kiwi" data-price="2.32">Kiwi $2.32</a></li>
+    <li><a class ="add-to-cart" href="#" data-name="Strawberries" data-price="1.50">Strawberries $1.50</a></li>
+    <li><a class ="add-to-cart" href="#" data-name="Pear" data-price="1.72">Pear $1.72</a></li>
+    
 </ul>
 <button id="clear-cart">Clear Cart </button?>
 </div>
 
 <div>
 <ul id="show-cart">
-
 </ul>
-</div>
+
+ <div id = "total-cart">Total Cart: $</div>
+
+ </div>
+
+
 
 
 
 <script>  
 
-//(".add-to-cart").click(function(event){
-//event.preventDefault();
-//});
+//$("#total-cart").html("99.75");
+
+$(" .add-to-cart").click(function(event){
+event.preventDefault();
+var name = $(this).attr("data-name");
+var price = Number($(this).attr("data-price"));
+
+addItemToCart(name,price,1)
+displayCart();
+});
+
+displayCart();
+
+function displayCart(){
+    console.log("*****Display Cart*****");
+    var cartArray = listCart();
+    var output = "";
+    for(var i in cartArray) {
+        output += "<li>"+cartArray[i].name+" "+cartArray[i].count+"</li>"
+    }
+    $("#show-cart").html(output);
+    $("#total-cart").html(totalCart() );
+}
 
 //shopping cart features
 
@@ -62,7 +91,7 @@
  addItemToCart("Banana",2.00,5);
  addItemToCart("Strawberries",1.50,10);
 
- /*
+ 
  console.log(cart.length);
 console.log(cart);
 
@@ -71,7 +100,7 @@ removeItemFromCartAll("Apple");
  console.log(cart); 
  console.log(cart[0])
  console.log(cart[0].name)
-*/
+
 
  //subtract item
 
@@ -154,7 +183,7 @@ function listCart() {
     return cartCopy;
 }
 
-var array = listCart();
+//var array = listCart();
 
 console.log(array);
 
@@ -170,7 +199,12 @@ cart = JSON.parse(localStorage.getItem("shoppingCart"));
 
 loadCart();
 
+displayCart();
+
+loadCart();
+
 var array = listCart();
+console.log("*************");
 console.log(array);
 
  </script>
